@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.coffee.API_sistema.dto.ProductDto;
 import com.coffee.API_sistema.service.ProductService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/api/product")
 public class ProductController {
@@ -28,7 +30,7 @@ public class ProductController {
 
     //Adicionar produtos RESTAPI
     @PostMapping
-    public ResponseEntity<ProductDto> registerProduct(@RequestBody ProductDto productDto) {
+    public ResponseEntity<ProductDto> registerProduct(@Valid @RequestBody ProductDto productDto) {
         ProductDto registeredProduct = productService.registerProduct(productDto);
         return new ResponseEntity<>(registeredProduct, HttpStatus.CREATED);
     }

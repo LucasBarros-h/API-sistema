@@ -1,11 +1,21 @@
 package com.coffee.API_sistema.dto;
 
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+
 public class ProductDto {
 
     private Long id;
+
+    @NotBlank
     private String name;
+
     private String description;
+
+    @Min(0)
     private Double price;
+    
+    @Min(0)
     private int inStock;
 
     public ProductDto() {
