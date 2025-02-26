@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.coffee.API_sistema.dto.ProductDto;
 import com.coffee.API_sistema.entity.Product;
 import com.coffee.API_sistema.exception.ItemNotFoundException;
-import com.coffee.API_sistema.mapper.ProductMapper;
+import com.coffee.API_sistema.mapper.SystemMapper;
 import com.coffee.API_sistema.repository.ProductRepository;
 import com.coffee.API_sistema.service.ProductService;
 
@@ -24,22 +24,22 @@ public class ProductServiceImpl implements ProductService{
     @Override
     public ProductDto registerProduct(ProductDto productDto) {
         
-        Product product = ProductMapper.mapToProduct(productDto);
+        Product product = SystemMapper.mapToProduct(productDto);
         Product registeredProduct = productRepository.save(product);
-        return ProductMapper.mapToProductDto(registeredProduct);
+        return SystemMapper.mapToProductDto(registeredProduct);
     }
 
     @Override
     public ProductDto getProductById(Long productId) {
         Product product = productRepository.findById(productId).orElseThrow(() -> new ItemNotFoundException("Item não encontrado pelo id: " + productId));
         
-        return ProductMapper.mapToProductDto(product);
+        return SystemMapper.mapToProductDto(product);
     }
 
     @Override
     public List<ProductDto> getAllProducts() {
         List<Product> products = productRepository.findAll();
-        return products.stream().map((product) -> ProductMapper.mapToProductDto(product)).collect(Collectors.toList());
+        return products.stream().map((product) -> SystemMapper.mapToProductDto(product)).collect(Collectors.toList());
     }
 
     @Override
@@ -54,7 +54,7 @@ public class ProductServiceImpl implements ProductService{
 
         Product updatedProductObject = productRepository.save(product);
        
-        return ProductMapper.mapToProductDto(updatedProductObject);
+        return SystemMapper.mapToProductDto(updatedProductObject);
     }
 
     @Override
