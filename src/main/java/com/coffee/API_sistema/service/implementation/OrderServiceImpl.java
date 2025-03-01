@@ -64,24 +64,29 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public OrderDto getOrderById(OrderDto orderDto) {
-        Order order = orderRepository.findById(orderDto.getId()).orElseThrow(() -> new OrderNotFoundException("Pedido não encontrado por esse ID: " + orderDto.getId()));
+    public OrderDto getOrderById(Long orderId) {
+        Order order = orderRepository.findById(orderId).orElseThrow(() -> new OrderNotFoundException("Pedido não encontrado por esse ID: " + orderId));
 
         return SystemMapper.mapToOrderDto(order);
     }
 
     @Override
-    public OrderDto approvedStatus(OrderDto orderDto) {
-        Order order = orderRepository.findById(orderDto.getId()).orElseThrow(() -> new OrderNotFoundException("Pedido não encontrador por esse ID: " + orderDto.getId()));
-        order.setStatus("APROVADO");
-
-        return SystemMapper.mapToOrderDto(order);
-    }
-
-    @Override
-    public OrderDto reprovedStatus(OrderDto orderDto) {
-        Order order = orderRepository.findById(orderDto.getId()).orElseThrow(() -> new OrderNotFoundException("Pedido não encontrado por esse ID: " + orderDto.getId()));
-        order.setStatus("REPROVADO");
+    public OrderDto switchStatus(Long orderId) {
+        Order order = orderRepository.findById(orderId).orElseThrow(() -> new OrderNotFoundException("Pedido não encontrador por esse ID: " + orderId));
+        
+        switch (order.getStatus()) {
+            case "PENDENTE":
+                order.setStatus("APROVADO");
+                break;
+            case "APROVADO":
+                order.setStatus("REPROVADO");
+                break;
+            default:
+                order.setStatus("PENDENTE");
+                break;
+        }
+        
+        orderRepository.save(order);
 
         return SystemMapper.mapToOrderDto(order);
     }

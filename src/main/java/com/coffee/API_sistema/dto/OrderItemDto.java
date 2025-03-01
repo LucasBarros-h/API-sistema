@@ -1,9 +1,13 @@
 package com.coffee.API_sistema.dto;
 
+import jakarta.validation.constraints.Min;
+
 public class OrderItemDto {
 
+    
     private Long productId;
 
+    @Min(0)
     private int quantity;
 
     public OrderItemDto() {

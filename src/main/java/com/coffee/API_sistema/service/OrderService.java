@@ -10,10 +10,8 @@ public interface OrderService {
 
     List<OrderDto> getAllOrders();
 
-    OrderDto getOrderById(OrderDto orderDto);
+    OrderDto getOrderById(Long orderId);
 
-    OrderDto approvedStatus(OrderDto orderDto);
-
-    OrderDto reprovedStatus(OrderDto orderDto);
+    OrderDto switchStatus(Long orderId);
 
 }
