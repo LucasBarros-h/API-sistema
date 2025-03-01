@@ -1,6 +1,7 @@
 package com.coffee.API_sistema.entity;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -22,10 +23,9 @@ public class Order {
     private String status;
 
     private LocalDateTime orderDate = LocalDateTime.now();
-
-    //ENTIDADE 'PAI' | CASCADETYPE.ALL -> PARA PROPAGAR TODAS AS AÇÕES PARA ENTIDADES 'FILHAS' (PERSISTE, MERGE, REMOVE, REFRESH) | orphanRemoval -> PARA DROPAR TODAS AS TABELAS QUE TENHAM ESSA COMO 'PAI'  
+  
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<OrderItem> items;
+    private List<OrderItem> items = new ArrayList<>();
 
     public Order() {
     }

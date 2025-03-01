@@ -60,6 +60,7 @@ public class ProductServiceImpl implements ProductService{
     @Override
     public void deleteProduct(Long productId) {
 
+        @SuppressWarnings("unused")
         Product product = productRepository.findById(productId).orElseThrow(() -> new ItemNotFoundException("Produto não cadastrado pelo ID: " + productId));
 
         productRepository.deleteById(productId);

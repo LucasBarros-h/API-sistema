@@ -9,7 +9,7 @@ public class OrderDto {
 
     private String status;
 
-    private LocalDateTime orderDate;
+    private LocalDateTime orderDate = LocalDateTime.now();
 
     private List<OrderItemDto> items;
 
